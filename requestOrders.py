@@ -1,21 +1,26 @@
+# Notes
+# Replace Staging URL with Prod URL
+# Replace Staging API key with Prod API key
+# Change "VI" to "VIC" in Production env
+
 import json
 import requests
 import csv
 
 # Staging URL
-url = "https://sofia-stage.dnagenotek.com/api/v2/orders"
+# url = "https://sofia-stage.dnagenotek.com/api/v2/orders"
 
 # Production URL
-# url = "https://sofia.dnagenotek.com/api/v2/orders"
+url = "https://sofia.dnagenotek.com/api/v2/orders"
 
 # Replace the username with the API key
-username = ""
+# username = "" #staging API key
 # username = ""  #Production API key
 
 # Leave the password empty
 password = ""
 
-filename = 'csv_files/labels_noheader.csv'
+filename = 'csv_files/labels_header_final.csv'
 replace_array = []
 with open(filename, mode='r') as csvfile:
   datareader = csv.reader(csvfile)
@@ -50,7 +55,7 @@ for value in divided_replace_array:
               "address_1": "99 Commercial Rd, Alfred Centre 6th Floor",
               "address_2": "",
               "city": "Melbourne",
-              "region": "VI", #Change to "VIC" for Production
+              "region": "VIC", #Change to "VIC" for Production
               "country": "AU",
               "postal_code": "3004 "
             },
