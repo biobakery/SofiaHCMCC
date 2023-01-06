@@ -1,8 +1,18 @@
 import json
 import requests
 import csv
+
+# Staging URL
 url = "https://sofia-stage.dnagenotek.com/api/v2/orders"
+
+# Production URL
+# url = "https://sofia.dnagenotek.com/api/v2/orders"
+
+# Replace the username with the API key
 username = ""
+# username = ""  #Production API key
+
+# Leave the password empty
 password = ""
 
 filename = 'csv_files/labels_noheader.csv'
@@ -39,10 +49,10 @@ for value in divided_replace_array:
               "company": "Monash University",
               "address_1": "99 Commercial Rd, Alfred Centre 6th Floor",
               "address_2": "",
-              "city": "Ottawa",
-              "region": "ON",
-              "country": "CA",
-              "postal_code": "K2V1C2"
+              "city": "Melbourne",
+              "region": "VI", #Change to "VIC" for Production
+              "country": "AU",
+              "postal_code": "3004 "
             },
             "items": [
               {
