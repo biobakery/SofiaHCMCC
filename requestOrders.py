@@ -8,21 +8,15 @@ filename = 'csv_files/labels_noheader.csv'
 replace_array = []
 with open(filename, mode='r') as csvfile:
   datareader = csv.reader(csvfile)
-  current_count=0
   for row in datareader:
-    # print(row)
     new_dict={
                     "sample_id": row[0],    
                     "label_line_1": "",   
                     "label_line_2": ""    
                   }   
     replace_array.append(new_dict)    
-    current_count+=1
     
 replace_array_count=(len(replace_array))    
-# print(replace_array)
-
-
 
 # Yield successive n-sized
 # chunks from l.
@@ -30,7 +24,6 @@ def divide_chunks(l, n):
     # looping till length l
     for i in range(0, len(l), n):
         yield l[i:i + n]
-
 
 # How many elements each
 # list should have
