@@ -1,81 +1,68 @@
 import requests
+import csv
 url = "https://sofia-stage.dnagenotek.com/api/v2/orders"
 username = ""
 password = ""
-data = {
-  "destination": {
-    "co_first_name": "John",
-    "co_last_name": "Appleseed",
-    "co_phone_number": "408-867-5309",
-    "company": "ACME Corp",
-    "address_1": "3000-5 Palladium Drive",
-    "address_2": "",
-    "city": "Ottawa",
-    "region": "ON",
-    "country": "CA",
-    "postal_code": "K2V1C2"
-  },
-  "items": [
-    {
-      "sku": "8011",
-      "quantity": 1
-    }
-  ],
-  "labels": [
-    {
-      "sample_id": "AAAA20160121ZZZZ",
-      "label_line_1": "",
-      "label_line_2": ""
-    }
-  ],
-  "customer_id": "",
-  "service_level": "USPS First-Class Mail (Endicia)"
-}
-response = requests.post(url, auth=(username, password),json=data)
-print(response.status_code)
-print(response.json())
+
+filename = 'csv_files/labels_noheader.csv'
+replace_array = []
+with open(filename, mode='r') as csvfile:
+  datareader = csv.reader(csvfile)
+  current_count=0
+  for row in datareader:
+    # print(row)
+    new_dict={
+                    "sample_id": row[0],    
+                    "label_line_1": "",   
+                    "label_line_2": ""    
+                  }   
+    replace_array.append(new_dict)    
+    current_count+=1
+    
+replace_array_count=(len(replace_array))    
+# print(replace_array)
 
 
 
-# import requests
-# import json
- 
-# url = "https://sofia-stage.dnagenotek.com/api/v2/orders"
- 
-# # headers = {"Content-Type": "application/json; charset=utf-8"}
-# headers = {"Authorization" : "Basic Snp1UEttUk9sc0M0TXZrRXdHSGl2d1Vhc3RDR3BuNVpnbDRMblQ2cFpxSDNRT3hpdU5QSWxaeWt5RXJHb0pMTzo="}
- 
-# data = {
-#   "destination": {
-#     "co_first_name": "John",
-#     "co_last_name": "Appleseed",
-#     "co_phone_number": "408-867-5309",
-#     "company": "ACME Corp",
-#     "address_1": "3000-5 Palladium Drive",
-#     "address_2": "",
-#     "city": "Ottawa",
-#     "region": "ON",
-#     "country": "CA",
-#     "postal_code": "K2V1C2"
-#   },
-#   "items": [
-#     {
-#       "sku": "8011",
-#       "quantity": 1
-#     }
-#   ],
-#   "labels": [
-#     {
-#       "sample_id": "AAAA20160121ZZZZ",
-#       "label_line_1": "1951-02-54",
-#       "label_line_2": "Special instructions to be added and scanned"
-#     }
-#   ],
-#   "customer_id": "AFW-123-340#87",
-#   "service_level": "USPS First-Class Mail (Endicia)"
-# }
- 
-# response = requests.post(url, headers=headers, json=data)
- 
-# print("Status Code", response.status_code)
-# print("JSON Response ", response.json())
+# Yield successive n-sized
+# chunks from l.
+def divide_chunks(l, n):
+    # looping till length l
+    for i in range(0, len(l), n):
+        yield l[i:i + n]
+
+
+# How many elements each
+# list should have
+n = 42
+divided_replace_array = list(divide_chunks(replace_array, n))
+for value in divided_replace_array:
+  data = {    
+            "destination": {    
+              "co_first_name": "James",
+              "co_last_name": "Phung",
+              "co_phone_number": "6139-903-0917",
+              "company": "Monash University",
+              "address_1": "99 Commercial Rd",
+              "address_2": "Alfred Centre 6th Floor",
+              "city": "Melbourne",
+              "region": "VIC",
+              "country": "AUS",
+              "postal_code": "3004"
+            },
+            "items": [
+              {
+                "sku": "8011",
+                "quantity": len(value)
+              }
+            ],
+            "labels": value,
+            "customer_id": "",
+            "service_level": "USPS First-Class Mail (Endicia)"
+          }
+
+  # print(data)   
+  response = requests.post(url, auth=(username, password),json=data)
+  print(response.status_code)
+  print(response.json())
+
