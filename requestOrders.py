@@ -1,3 +1,4 @@
+import json
 import requests
 import csv
 url = "https://sofia-stage.dnagenotek.com/api/v2/orders"
@@ -36,12 +37,12 @@ for value in divided_replace_array:
               "co_last_name": "Phung",
               "co_phone_number": "6139-903-0917",
               "company": "Monash University",
-              "address_1": "99 Commercial Rd",
-              "address_2": "Alfred Centre 6th Floor",
-              "city": "Melbourne",
-              "region": "VIC",
-              "country": "AUS",
-              "postal_code": "3004"
+              "address_1": "99 Commercial Rd, Alfred Centre 6th Floor",
+              "address_2": "",
+              "city": "Ottawa",
+              "region": "ON",
+              "country": "CA",
+              "postal_code": "K2V1C2"
             },
             "items": [
               {
@@ -50,12 +51,10 @@ for value in divided_replace_array:
               }
             ],
             "labels": value,
-            "customer_id": "",
-            "service_level": "USPS First-Class Mail (Endicia)"
+            "customer_id": ""
           }
 
-  # print(data)   
+  # print(json.dumps(data))   
   response = requests.post(url, auth=(username, password),json=data)
   print(response.status_code)
   print(response.json())
-
